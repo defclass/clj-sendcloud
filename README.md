@@ -15,9 +15,7 @@ eg:
 
 Add clj-sendcloud dependence:
 
-```
-[clj-sendcloud "0.1.0-SNAPSHOT"]
-```
+[![Clojars Project](https://img.shields.io/clojars/v/clj-sendcloud.svg)](https://clojars.org/clj-sendcloud)
 
 Examples:
 
