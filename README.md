@@ -56,6 +56,46 @@ Examples:
 ; :orig-content-encoding "gzip",
 ; :cookies ... }
 
+
+;; template send. Note that: if `"to"` key which in `:substitution_vars` 
+;; have more than one element,the `:api_user` type should be `batch` , and 
+;; the template type should be `batch` as well.  
+
+(->> (send-tpl {:api_user "XXXXXX"
+                :api_key  "XXXXXX"}
+               {:from    "XXX@XXX.cn"
+                :template_invoke_name "new_order_confirm"
+                :substitution_vars {"to" ["somebody-email-address@qq.com"]
+                                    "sub" {"%user_name%" ["test_user"]
+                                           "%total_price%" [1123]}}})
+     
+     (wrap-request)
+     (apply c/post))
+
+; => 
+; {:status 200,
+;  :headers
+;  {"Server" "nginx",
+;   "Date" "Mon, 20 Jun 2016 09:09:02 GMT",
+;   "Content-Type" "application/json;charset=UTF-8",
+;   "Transfer-Encoding" "chunked",
+;   "Connection" "close"},
+;  :body {:message "success"},
+;  :request-time 704,
+;  :trace-redirects
+;  ["https://sendcloud.sohu.com/webapi/mail.send_template.json"],
+;  :orig-content-encoding "gzip",
+;  :cookies
+;  {"sceroute_c1ba81468573a7be0bc71aebe26c46c3"
+;   {:discard true,
+;    :path "/",
+;    :secure false,
+;    :value "aac123b39b42f8992f6f7b6fc96d79f4",
+;    :version 0}}}
+
+
+
+
 ```
 
 ## License
