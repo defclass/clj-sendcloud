@@ -1,6 +1,7 @@
 (ns clj-sendcloud.core
   (:refer-clojure :exclude [send])
-  (:require [clj-sendcloud.util :refer [defaction defalias] :as util]))
+  (:require [clj-sendcloud.util :refer [defaction defalias] :as util]
+            [cheshire.core :as json]))
 
 (defalias wrap-request util/wrap-request)
 
@@ -12,7 +13,11 @@
 
 (defaction send [:from :to :subject :html] "mail.send.json")
 
-(defaction send-tpl [:from :template_invoke_name] "mail.send_template.json")
+(defaction send-tpl [:from :template_invoke_name] "mail.send_template.json"
+  (fn [m]
+    (if (:substitution_vars m)
+      (update-in m [:substitution_vars] #(json/generate-string %))
+      m)))
 
 
 ;; refer http://sendcloud.sohu.com/doc/email/template_do

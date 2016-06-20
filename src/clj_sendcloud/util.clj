@@ -22,13 +22,16 @@
              (format "Check fields fails. Fields: [ %s ] need to be specified"
                      (str/join ", " (map str fields)))))))
 
+(defn gen-action [credential-map fields need-check-fields uri & [adjust-fn]]
+  (let [adjust-fn (if adjust-fn adjust-fn identity)]
+    (check-fields need-check-fields fields)
+    [(assemble-url uri) (merge credential-map (adjust-fn fields))]))
+
 (defmacro defaction
   "All action need to passed credential-map and relate fields."
-  [symbol check-fields uri]
+  [symbol check-fields uri & [adjust-fn]]
   `(defn ~symbol [~'credential-map ~'fields]
-     (let [checked-fields#
-           (check-fields ~check-fields ~'fields)]
-       [(assemble-url ~uri) (merge checked-fields# ~'credential-map)])))
+     (gen-action ~'credential-map ~'fields ~check-fields ~uri ~adjust-fn)))
 
 (defmacro defalias [sym var-sym]
   `(let [v# (var ~var-sym)]

@@ -6,11 +6,10 @@ As Sendcloud APIv2 don't support HTTPS, this lib just support APIv1.
 
 ## Usage
 
-clj-sendcloud use clj-http as http client , and use cheshire to decode json. Make sure add clj-http, cheshire dependencies.
+clj-sendcloud use clj-http as http client, make sure add clj-http dependencies.
 eg:
 ```
 [clj-http "2.1.0"]
-[cheshire "5.6.1"]
 ```
 
 Add clj-sendcloud dependence:
