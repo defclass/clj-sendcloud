@@ -1,4 +1,4 @@
-(defproject clj-sendcloud "0.1.0-SNAPSHOT"
+(defproject clj-sendcloud "0.1.0-20160621.182918"
   :description "A Clojure library designed to support Sendcloud API."
   :url "https://github.com/defclass/clj-sendcloud"
   :license {:name "Eclipse Public License"
