@@ -10,9 +10,9 @@
 (defn wrap-request [[url body]]
   [url
    {:body (codec/form-encode body)
-    :content-type "application/x-www-form-urlencoded"
-    :as :json
-    :coerce :always}])
+    :headers {:content-type "application/x-www-form-urlencoded"
+              :accept :json}
+    :as :auto}])
 
 (defn check-fields [fields body-map]
   (assert (vector? fields) "fields is not vector.")
