@@ -19,7 +19,7 @@ Add clj-sendcloud dependence:
 Examples:
 
 ```clojure
-(require '[clj-sendcloud.core :refer s])
+(require '[clj-sendcloud.core :as s])
 
 ;; tlist
 (s/tlist {:api_user "XXXXXXXX" :api_key "XXXXXXXX"} {})
