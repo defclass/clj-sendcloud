@@ -66,8 +66,8 @@ Examples:
                {:from    "XXX@XXX.cn"
                 :template_invoke_name "new_order_confirm"
                 :substitution_vars {"to" ["somebody-email-address@qq.com"]
-                                    "sub" {"%user_name%" ["test_user"]
-                                           "%total_price%" [1123]}}})
+                                    "sub" {:%user_name% ["test_user"]
+                                           :%total_price% [1123]}}})
      
      (wrap-request)
      (apply c/post))
@@ -93,8 +93,25 @@ Examples:
 ;    :value "aac123b39b42f8992f6f7b6fc96d79f4",
 ;    :version 0}}}
 
+;; about sendt
 
+(= (send-tpl {:api_user "XXXXXX"
+              :api_key  "XXXXXX"}
+             {:from                 "XXX@XXX.cn"
+              :template_invoke_name "new_order_confirm"
+              :substitution_vars    {:to ["somebody-email-address@qq.com"]
+                                     :sub {:%user_name%   ["test_user"]
+                                          :%total_price% [1123]}}})
+   (sendt {:api_user "XXXXXX"
+           :api_key  "XXXXXX"}
+          "XXX@XXX.cn"
+          "new_order_confirm"
+          {:mail         ["somebody-email-address@qq.com"]
+           :%user_name%  ["test_user"]
+           :%total_price% [1123]}))
+;=> true
 
+;; have fun!
 
 ```
 

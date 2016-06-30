@@ -19,6 +19,12 @@
       (update-in m [:substitution_vars] #(json/generate-string %))
       m)))
 
+(defn sendt [credential-map from template-invoke-name body-map]
+  (send-tpl credential-map
+            {:from from
+             :template_invoke_name template-invoke-name
+             :substitution_vars {:to (:mail body-map)
+                                 :sub (dissoc body-map :mail)}}))
 
 ;; refer http://sendcloud.sohu.com/doc/email/template_do
 ;; template action
