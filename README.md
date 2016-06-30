@@ -61,15 +61,15 @@ Examples:
 ;; have more than one element,the `:api_user` type should be `batch` , and 
 ;; the template type should be `batch` as well.  
 
-(->> (send-tpl {:api_user "XXXXXX"
-                :api_key  "XXXXXX"}
-               {:from    "XXX@XXX.cn"
-                :template_invoke_name "new_order_confirm"
-                :substitution_vars {"to" ["somebody-email-address@qq.com"]
-                                    "sub" {:%user_name% ["test_user"]
-                                           :%total_price% [1123]}}})
-     
-     (wrap-request)
+(->> (s/send-tpl {:api_user "XXXXXX"
+                  :api_key  "XXXXXX"}
+                 {:from    "XXX@XXX.cn"
+                  :template_invoke_name "new_order_confirm"
+                  :substitution_vars {:to ["somebody-email-address@qq.com"]
+                                      :sub {:%user_name% ["test_user"]
+                                            :%total_price% [1123]}}})
+
+     (s/wrap-request)
      (apply c/post))
 
 ; => 
@@ -95,23 +95,22 @@ Examples:
 
 ;; about sendt
 
-(= (send-tpl {:api_user "XXXXXX"
-              :api_key  "XXXXXX"}
-             {:from                 "XXX@XXX.cn"
-              :template_invoke_name "new_order_confirm"
-              :substitution_vars    {:to ["somebody-email-address@qq.com"]
-                                     :sub {:%user_name%   ["test_user"]
-                                          :%total_price% [1123]}}})
-   (sendt {:api_user "XXXXXX"
-           :api_key  "XXXXXX"}
-          "XXX@XXX.cn"
-          "new_order_confirm"
-          {:mail         ["somebody-email-address@qq.com"]
-           :%user_name%  ["test_user"]
-           :%total_price% [1123]}))
+(= (s/send-tpl {:api_user "XXXXXX"
+                :api_key  "XXXXXX"}
+               {:from                 "XXX@XXX.cn"
+                :template_invoke_name "new_order_confirm"
+                :substitution_vars    {:to ["somebody-email-address@qq.com"]
+                                       :sub {:%user_name%   ["test_user"]
+                                             :%total_price% [1123]}}})
+   (s/sendt {:api_user "XXXXXX"
+             :api_key  "XXXXXX"}
+            "XXX@XXX.cn"
+            "new_order_confirm"
+            {:mail         ["somebody-email-address@qq.com"]
+             :%user_name%  ["test_user"]
+             :%total_price% [1123]}))
 ;=> true
 
-;; have fun!
 
 ```
 
