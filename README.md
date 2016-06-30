@@ -57,7 +57,7 @@ Examples:
 ; :cookies ... }
 
 
-;; template send. Note that: if `"to"` key which in `:substitution_vars` 
+;; template send. Note that: if `:to` key which in `:substitution_vars` 
 ;; have more than one element,the `:api_user` type should be `batch` , and 
 ;; the template type should be `batch` as well.  
 
